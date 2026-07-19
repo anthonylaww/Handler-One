@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Handler One</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Register -->
+<section id="screen-register" class="screen">
+  <h1>Handler One</h1>
+  <p class="subtitle">The table is open. Identify yourself, Agent.</p>
+  <input id="alias-input" type="text" maxlength="30" placeholder="Your alias" autocomplete="off">
+  <button id="register-btn" class="primary">Take a seat</button>
+  <p id="register-notice" class="notice"></p>
+</section>
+
+<!-- Mission -->
+<section id="screen-mission" class="screen">
+  <h1>Your Mission</h1>
+  <p class="subtitle">Should you accept it&hellip;</p>
+  <div id="mission-card" class="card">
+    <span class="label">Contract</span>
+    <p id="mission-text" class="mission-text"></p>
+  </div>
+  <div class="actions">
+    <button id="btn-complete" class="primary">Complete &mdash; collect chips</button>
+    <button id="btn-failed">Failed &mdash; I was made</button>
+    <button id="btn-fold" class="danger">Fold</button>
+  </div>
+  <p class="folds">Folds remaining: <span id="folds-left"></span></p>
+  <p id="mission-notice" class="notice"></p>
+</section>
+
+<!-- Exhausted -->
+<section id="screen-exhausted" class="screen">
+  <h1>Cashier's Cage</h1>
+  <div class="card">
+    <span class="label">House notice</span>
+    <p class="mission-text">The house has no more contracts for you tonight. Enjoy the party, Agent.</p>
+  </div>
+</section>
+
+<!-- Lobby / table -->
+<section id="screen-lobby" class="screen">
+  <h1>The Table</h1>
+  <p class="subtitle">Agents currently in play. Order means nothing.</p>
+  <ul id="codename-list" class="codename-list"></ul>
+</section>
+
+<!-- Final standings -->
+<section id="screen-reveal" class="screen">
+  <h1>Final Standings</h1>
+  <p class="subtitle">The house always knows.</p>
+  <table>
+    <thead><tr><th>#</th><th>Agent</th><th>Codename</th><th>Chips</th></tr></thead>
+    <tbody id="leaderboard-body"></tbody>
+  </table>
+</section>
+
+<nav id="tabbar">
+  <button id="tab-mission" class="active">Mission</button>
+  <button id="tab-lobby">The Table</button>
+</nav>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

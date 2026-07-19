@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The House</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section id="screen-login" class="screen active">
+  <h1>The House</h1>
+  <p class="subtitle">Host access only.</p>
+  <input id="pass-input" type="password" placeholder="Host passphrase" autocomplete="current-password">
+  <button id="login-btn" class="primary">Enter</button>
+  <p id="login-notice" class="notice"></p>
+</section>
+
+<section id="screen-admin" class="screen">
+  <h1>The House</h1>
+
+  <div class="admin-section">
+    <h2>Mission bank</h2>
+    <p class="subtitle">One mission per line (or a JSON array). Seeding replaces the whole bank.</p>
+    <textarea id="missions-input" placeholder="Get a stranger to teach you a card trick&#10;…"></textarea>
+    <button id="seed-btn">Seed missions</button>
+    <p id="seed-notice" class="notice"></p>
+  </div>
+
+  <div class="admin-section">
+    <h2>Cooldown (seconds)</h2>
+    <input id="cooldown-input" type="number" min="0" value="90">
+    <button id="cooldown-btn">Set cooldown</button>
+  </div>
+
+  <div class="admin-section">
+    <h2>The reveal</h2>
+    <button id="reveal-btn" class="danger">Flip the reveal</button>
+    <button id="undo-btn">Undo reveal</button>
+    <p id="reveal-notice" class="notice"></p>
+  </div>
+
+  <div class="admin-section">
+    <h2>Live table</h2>
+    <table class="dash-table">
+      <thead><tr><th>Agent</th><th>Codename</th><th>Score</th><th>Warnings</th><th>Folds</th><th></th></tr></thead>
+      <tbody id="dash-body"></tbody>
+    </table>
+  </div>
+</section>
+
+<script src="config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
