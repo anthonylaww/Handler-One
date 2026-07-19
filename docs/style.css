@@ -1,23 +1,43 @@
-/* Handler One — Casino Royale theme */
+/* Handler One — "Le Cercle Privé" (see DESIGN.md)
+   Structure layer: gold hairlines. Signal layer: green = interactive, red = danger. */
+
 :root {
-  --felt: #0b3d2e;
-  --felt-dark: #062419;
-  --black: #0d0d0d;
-  --gold: #c9a227;
-  --gold-bright: #e8c547;
-  --cream: #f5efe0;
-  --red: #a3232b;
+  --bg-void: #0a0b0d;
+  --bg-raised: #14151a;
+  --bg-paper: #0e1712;
+  --bg-fill: #191c22;
+  --green: #0e5c3f;
+  --green-hover: #147a53;
+  --gold: #c9a96a;
+  --gold-bright: #e8cf9c;
+  --gold-deep: #8c6b32;
+  --red: #8e1b2b;
+  --red-legible: #e0596a;
+  --ink: #f3eee4;
+  --ink-2: #b9b4a8;
+  --line: rgba(201, 169, 106, 0.22);
+  --foil: linear-gradient(112deg, #8c6b32 0%, #c9a96a 42%, #e8cf9c 55%, #c9a96a 68%, #8c6b32 100%);
+  --ease-hand: cubic-bezier(0.22, 1, 0.36, 1);
+  --z-rail: 10;
+  /* guilloché rosette watermark — static inline asset, linework only */
+  --guilloche: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%23C9A96A' stroke-width='0.6'%3E%3Ccircle cx='120' cy='120' r='104'/%3E%3Ccircle cx='120' cy='120' r='64'/%3E%3Ccircle cx='120' cy='120' r='24'/%3E%3Cellipse cx='120' cy='120' rx='100' ry='36'/%3E%3Cellipse cx='120' cy='120' rx='100' ry='36' transform='rotate(30 120 120)'/%3E%3Cellipse cx='120' cy='120' rx='100' ry='36' transform='rotate(60 120 120)'/%3E%3Cellipse cx='120' cy='120' rx='100' ry='36' transform='rotate(90 120 120)'/%3E%3Cellipse cx='120' cy='120' rx='100' ry='36' transform='rotate(120 120 120)'/%3E%3Cellipse cx='120' cy='120' rx='100' ry='36' transform='rotate(150 120 120)'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html, body {
   height: 100%;
-  background: radial-gradient(ellipse at 50% 30%, var(--felt) 0%, var(--felt-dark) 70%, var(--black) 100%);
-  color: var(--cream);
-  font-family: Georgia, 'Times New Roman', serif;
+  background:
+    radial-gradient(ellipse 120% 70% at 50% 18%, rgba(14, 92, 63, 0.16), transparent 65%),
+    var(--bg-void);
+  color: var(--ink);
+  font-family: 'Libre Franklin', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
+
+/* --- screens ------------------------------------------------------------- */
 
 .screen {
   display: none;
@@ -25,159 +45,294 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 24px 20px 90px;
+  padding: 32px 20px 96px;
   text-align: center;
-  gap: 18px;
+  gap: 20px;
 }
-.screen.active { display: flex; }
+.screen.active { display: flex; animation: screen-in 200ms var(--ease-hand); }
+
+@keyframes screen-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* --- type ---------------------------------------------------------------- */
 
 h1 {
-  font-size: 1.6rem;
-  letter-spacing: 0.18em;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 600;
+  font-size: 2rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gold-bright);
-}
-.subtitle {
-  font-style: italic;
-  color: var(--gold);
-  font-size: 0.95rem;
+  color: var(--ink);
+  text-wrap: balance;
+  padding: 14px 8px;
+  width: 100%;
+  max-width: 420px;
+  /* double gilt rule, above and below — the certificate title bar */
+  background-image:
+    linear-gradient(var(--line), var(--line)),
+    linear-gradient(rgba(201, 169, 106, 0.12), rgba(201, 169, 106, 0.12)),
+    linear-gradient(var(--line), var(--line)),
+    linear-gradient(rgba(201, 169, 106, 0.12), rgba(201, 169, 106, 0.12));
+  background-repeat: no-repeat;
+  background-size: 100% 1px, 100% 1px, 100% 1px, 100% 1px;
+  background-position: 0 0, 0 4px, 0 100%, 0 calc(100% - 4px);
 }
 
+.subtitle {
+  color: var(--ink-2);
+  font-size: 0.95rem;
+  max-width: 42ch;
+  text-wrap: pretty;
+}
+
+/* --- the certificate card ------------------------------------------------ */
+
 .card {
-  background: linear-gradient(160deg, #fffdf5, #efe8d5);
-  color: #1a1a1a;
-  border-radius: 14px;
-  border: 1px solid var(--gold);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6), inset 0 0 0 6px rgba(201,162,39,0.15);
-  padding: 34px 24px;
+  position: relative;
+  background:
+    var(--guilloche) center / 220px 220px no-repeat,
+    radial-gradient(ellipse 90% 70% at 50% 30%, rgba(20, 122, 83, 0.10), transparent 70%),
+    var(--bg-paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.6),
+    0 12px 28px -12px rgba(0, 0, 0, 0.7);
+  padding: 40px 26px;
   width: 100%;
   max-width: 420px;
   min-height: 220px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 14px;
-  position: relative;
+  gap: 16px;
 }
+/* corner indices — suit glyphs live here and nowhere else */
 .card::before, .card::after {
-  content: '♠';
+  content: '\2660';
   position: absolute;
-  color: var(--red);
-  font-size: 1.2rem;
+  color: var(--gold);
+  opacity: 0.75;
+  font-size: 0.9rem;
+  line-height: 1;
 }
-.card::before { top: 10px; left: 14px; }
-.card::after { bottom: 10px; right: 14px; transform: rotate(180deg); }
-.card .label {
-  font-size: 0.72rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: #8a7430;
-}
-.card .mission-text { font-size: 1.25rem; line-height: 1.45; }
+.card::before { top: 12px; left: 14px; }
+.card::after { bottom: 12px; right: 14px; transform: rotate(180deg); }
 
+.card .label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.card .mission-text {
+  font-size: 1.25rem;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+/* the deal — one deliberate gesture, then still */
 @keyframes deal {
-  from { transform: translateY(60px) rotate(-6deg) scale(0.9); opacity: 0; }
+  from { transform: translateY(28px) rotate(-0.5deg); opacity: 0; }
   to   { transform: none; opacity: 1; }
 }
-.card.dealt { animation: deal 0.45s ease-out; }
+.card.dealt { animation: deal 320ms var(--ease-hand); }
+
+/* --- controls ------------------------------------------------------------ */
 
 button {
   font-family: inherit;
-  font-size: 1.05rem;
-  letter-spacing: 0.08em;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  border: 1px solid var(--gold);
-  border-radius: 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
   padding: 16px 20px;
   width: 100%;
   max-width: 420px;
   min-height: 56px;
   cursor: pointer;
   background: transparent;
-  color: var(--gold-bright);
-  transition: transform 0.08s;
+  color: var(--ink);
+  transition: transform 120ms var(--ease-hand), background-color 150ms var(--ease-hand),
+              border-color 150ms var(--ease-hand);
 }
-button:active { transform: scale(0.97); }
-button.primary { background: var(--gold); color: var(--black); font-weight: bold; }
-button.danger  { border-color: var(--red); color: #e07078; }
-button:disabled { opacity: 0.35; cursor: default; }
+button:not(.primary, .danger):hover { border-color: rgba(201, 169, 106, 0.45); }
+button:active { transform: translateY(1px); }
+
+button.primary {
+  background: var(--green);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  color: var(--ink);
+  font-weight: 600;
+}
+button.primary:hover { background: var(--green-hover); }
+
+button.danger { border-color: rgba(142, 27, 43, 0.6); color: var(--red-legible); }
+button.danger:hover { border-color: var(--red); }
+
+button:disabled { opacity: 0.35; cursor: default; transform: none; }
+
+:is(button, input, textarea, a):focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
 
 .actions { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 420px; }
 
-input[type="text"], input[type="password"], textarea, input[type="number"] {
+input[type="text"], input[type="password"], input[type="number"], textarea {
   font-family: inherit;
   font-size: 1.1rem;
   width: 100%;
   max-width: 420px;
   padding: 15px;
-  border-radius: 10px;
-  border: 1px solid var(--gold);
-  background: rgba(0,0,0,0.35);
-  color: var(--cream);
+  border-radius: 6px;
+  border: 1px solid rgba(243, 238, 228, 0.14);
+  background: var(--bg-fill);
+  color: var(--ink);
   text-align: center;
+  transition: border-color 150ms var(--ease-hand);
 }
-textarea { text-align: left; min-height: 180px; font-size: 0.95rem; }
+:is(input, textarea)::placeholder { color: var(--ink-2); opacity: 1; }
+:is(input, textarea):focus { border-color: rgba(201, 169, 106, 0.5); }
+textarea { text-align: left; min-height: 180px; font-size: 0.95rem; line-height: 1.55; }
+input[type="number"] { font-feature-settings: "tnum" 1; }
 
 .notice {
   min-height: 1.4em;
-  color: var(--gold-bright);
-  font-style: italic;
+  color: var(--ink-2);
+  font-size: 0.95rem;
 }
-.notice.warn { color: #e07078; }
+.notice.warn { color: var(--red-legible); }
+.notice.warn:not(:empty)::before { content: '\2660\00a0'; }
 
-.folds { font-size: 0.9rem; color: var(--gold); letter-spacing: 0.1em; }
-.chip { display: inline-block; margin: 0 2px; }
+.folds {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-feature-settings: "tnum" 1;
+}
+.chip { display: inline-block; margin: 0 3px; color: var(--gold); }
 
-/* bottom tab bar */
+/* --- brass rail (bottom tabs) -------------------------------------------- */
+
 nav {
   position: fixed;
   bottom: 0; left: 0; right: 0;
+  z-index: var(--z-rail);
   display: none;
-  background: rgba(6, 20, 14, 0.95);
-  border-top: 1px solid var(--gold);
+  background: var(--bg-raised);
+  border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 nav.visible { display: flex; }
 nav button {
+  position: relative;
   border: none;
   border-radius: 0;
   max-width: none;
   min-height: 60px;
-  font-size: 0.85rem;
-  color: var(--cream);
+  font-size: 0.8125rem;
+  letter-spacing: 0.14em;
+  color: var(--ink-2);
 }
-nav button.active { color: var(--gold-bright); border-top: 2px solid var(--gold-bright); }
+nav button:hover { border: none; color: var(--ink); }
+nav button.active { color: var(--ink); }
+/* the active plate is marked by a single struck-gold dot, not a fill */
+nav button.active::before {
+  content: '';
+  position: absolute;
+  top: 9px; left: 50%;
+  width: 4px; height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: var(--gold-bright);
+}
 
-/* lobby */
+/* --- lobby --------------------------------------------------------------- */
+
 .codename-list { list-style: none; width: 100%; max-width: 420px; }
 .codename-list li {
-  padding: 12px;
-  border-bottom: 1px solid rgba(201,162,39,0.25);
+  padding: 14px 8px;
+  border-bottom: 1px solid rgba(243, 238, 228, 0.08);
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  font-size: 0.95rem;
+  font-size: 0.9375rem;
 }
 
-/* final leaderboard */
-table { width: 100%; max-width: 480px; border-collapse: collapse; }
-th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid rgba(201,162,39,0.3); }
-th { color: var(--gold); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; }
-td.rank { color: var(--gold-bright); font-weight: bold; }
-td.score { text-align: right; color: var(--gold-bright); }
-tr.top td { font-size: 1.15rem; }
+/* --- ledgers (leaderboard & admin dashboard) ------------------------------ */
 
-/* admin */
+table {
+  width: 100%;
+  max-width: 480px;
+  border-collapse: collapse;
+  font-feature-settings: "tnum" 1;
+}
+th, td {
+  padding: 11px 8px;
+  text-align: left;
+  border-bottom: 1px solid rgba(243, 238, 228, 0.08);
+  overflow-wrap: anywhere;
+}
+th {
+  color: var(--ink-2);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(201, 169, 106, 0.4); /* the single gold header rule */
+}
+td.rank { color: var(--ink-2); }
+td.score { text-align: right; }
+tr.top td { font-size: 1.15rem; color: var(--ink); }
+tr.top td.rank { color: var(--gold); font-weight: 600; }
+tbody tr:nth-child(even) td { background: rgba(25, 28, 34, 0.5); }
+
+/* --- admin (The House) ---------------------------------------------------- */
+
 .admin-section {
   width: 100%;
   max-width: 640px;
-  border: 1px solid rgba(201,162,39,0.4);
-  border-radius: 12px;
-  padding: 18px;
+  padding: 22px 0 6px;
   display: flex;
   flex-direction: column;
   gap: 12px;
   text-align: left;
+  /* labeled double gilt rule instead of a box */
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -4px 0 -3px rgba(201, 169, 106, 0.12);
 }
-.admin-section h2 { font-size: 0.9rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
-.dash-table { font-size: 0.85rem; }
-.dash-table td, .dash-table th { padding: 6px; }
-.tag-shadow { color: #e07078; font-weight: bold; }
+.admin-section h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.admin-section .subtitle { font-size: 0.875rem; max-width: 60ch; }
+.admin-section :is(input, textarea, button) { max-width: none; text-align: left; }
+.admin-section button { text-align: center; }
+.admin-section input[type="number"] { max-width: 160px; text-align: center; }
+/* admin runs long — top-align so flex centering can't clip content above the fold */
+#screen-admin { justify-content: flex-start; padding-top: 48px; }
+.dash-table { max-width: none; font-size: 0.875rem; }
+.dash-table td, .dash-table th { padding: 7px 6px; }
+.tag-shadow { color: var(--red-legible); font-weight: 600; }
+
+/* --- reduced motion -------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .screen.active { animation: none; }
+  .card.dealt { animation: deal-fade 150ms ease-out; }
+  button { transition: none; }
+  @keyframes deal-fade { from { opacity: 0; } to { opacity: 1; } }
+}
