@@ -210,6 +210,7 @@ export function adminView(state) {
     revealed: state.revealed,
     cooldownSeconds: state.cooldownMs / 1000,
     missionCount: state.missions.length,
+    missions: state.missions.map((m) => m.text),
     players: Object.values(state.players).map((p) => ({
       alias: p.alias,
       codename: p.codename,

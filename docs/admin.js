@@ -64,10 +64,18 @@
     });
   });
 
+  var bankLoaded = false;
+
   function refreshDash() {
     api('/api/admin/dashboard').then(function (res) {
       if (!res.ok) return;
       var d = res.data;
+      // Show the current bank once, so the host sees what's loaded without
+      // clobbering anything they're typing on later polls.
+      if (!bankLoaded && d.missions) {
+        if (!$('missions-input').value.trim()) $('missions-input').value = d.missions.join('\n');
+        bankLoaded = true;
+      }
       $('cooldown-input').value = d.cooldownSeconds;
       $('reveal-notice').textContent = d.revealed
         ? 'REVEALED — the game is over.'
