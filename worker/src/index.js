@@ -112,6 +112,13 @@ export class GameRoom {
           this.broadcast({ type: 'reveal', revealed: this.state.revealed });
           return json({ ok: true, revealed: this.state.revealed });
         }
+        if (path === '/api/admin/reset' && request.method === 'POST') {
+          game.resetGame(this.state);
+          await this.save();
+          // Kick every connected phone back to registration.
+          this.broadcast({ type: 'reset' });
+          return json({ ok: true });
+        }
       }
 
       return json({ error: 'not_found' }, 404);

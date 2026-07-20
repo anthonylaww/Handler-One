@@ -146,6 +146,12 @@ export function setRevealed(state, on) {
   state.revealed = Boolean(on);
 }
 
+// Clears players and the reveal flag but keeps the mission bank and cooldown.
+export function resetGame(state) {
+  state.players = {};
+  state.revealed = false;
+}
+
 // --- views (the ONLY things ever sent to non-host clients) ------------------
 
 // What one player may know about themselves. Never contains scores,
