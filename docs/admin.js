@@ -58,7 +58,7 @@
 
   $('reset-btn').addEventListener('click', function () {
     if (!confirm('Reset the game? All agents, scores, and progress will be cleared. The mission bank stays.')) return;
-    api('/api/admin/reset').then(function (res) {
+    api('/api/admin/reset', {}).then(function (res) {
       $('reset-notice').textContent = res.ok ? 'Game reset. Mission bank kept.' : (res.data.message || 'Reset failed.');
       refreshDash();
     });
