@@ -151,7 +151,7 @@
       if (res.data.result === 'warning') {
         notice('mission-notice', 'The house is watching, Agent. Patience.', true);
       } else if (res.data.result === 'fold_rejected') {
-        notice('mission-notice', 'No folds left. Play the hand you were dealt.', true);
+        notice('mission-notice', 'No skips left. Play the hand you were dealt.', true);
       }
       render(res.data.view);
     });
