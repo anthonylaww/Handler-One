@@ -103,6 +103,20 @@ test('4th warning silently shadow-zeros: score reset to 0 and frozen, play conti
   assert.equal(JSON.stringify(view).toLowerCase().includes('shadow'), false);
 });
 
+test('clearing the bank empties missions, clears the table, and allows a fresh seed', () => {
+  const state = setup(3);
+  game.registerPlayer(state, 'Bond', 'p1', T0, first);
+  game.setRevealed(state, true);
+  game.clearMissions(state);
+  assert.equal(state.missions.length, 0);
+  assert.deepEqual(state.players, {});
+  assert.equal(state.revealed, false);
+  // a fresh seed reopens the table with clean ids
+  game.seedMissions(state, ['New contract']);
+  const p = game.registerPlayer(state, 'Bond', 'p1', T0, first);
+  assert.equal(p.current.missionId, 0);
+});
+
 test('cooldown is host-tunable', () => {
   const state = setup();
   game.setCooldown(state, 5);

@@ -87,6 +87,8 @@ controlled by the host.
 - Capabilities:
   - **Seed the mission bank**: paste the mission list (JSON or line-per-mission)
     once before the party. Stored server-side only.
+  - **Clear the mission bank**: empties the bank and clears the table back to
+    its pre-seed state; registration closes until a fresh bank is seeded.
   - **Cooldown setting** (default 90s).
   - **Live dashboard**: real names, codenames, scores, warning counts, folds used —
     visible only to the host, live-updating.

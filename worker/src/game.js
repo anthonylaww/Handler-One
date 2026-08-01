@@ -136,6 +136,14 @@ export function seedMissions(state, texts) {
   state.missions = clean.map((text, i) => ({ id: i, text }));
 }
 
+// Empties the bank and returns the table to its pre-seed state. Player
+// histories reference bank ids, so the players are cleared with it;
+// registration reopens once a fresh bank is seeded.
+export function clearMissions(state) {
+  state.missions = [];
+  resetGame(state);
+}
+
 export function setCooldown(state, seconds) {
   const s = Number(seconds);
   if (!Number.isFinite(s) || s < 0) throw err('bad_cooldown', 'Bad cooldown.');
