@@ -97,6 +97,13 @@ export class GameRoom {
           await this.save();
           return json({ ok: true, count: this.state.missions.length });
         }
+        if (path === '/api/admin/missions/clear' && request.method === 'POST') {
+          game.clearMissions(this.state);
+          await this.save();
+          // Kick every connected phone back to registration; the table is closed.
+          this.broadcast({ type: 'reset' });
+          return json({ ok: true, count: 0 });
+        }
         if (path === '/api/admin/cooldown' && request.method === 'POST') {
           game.setCooldown(this.state, body.seconds);
           await this.save();

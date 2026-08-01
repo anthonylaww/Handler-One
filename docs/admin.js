@@ -45,6 +45,17 @@
     });
   });
 
+  $('clear-bank-btn').addEventListener('click', function () {
+    if (!confirm('Empty the mission bank? All agents and progress are cleared with it, and registration closes until a new bank is seeded.')) return;
+    api('/api/admin/missions/clear', {}).then(function (res) {
+      $('seed-notice').textContent = res.ok
+        ? 'Bank emptied. The table is closed until you seed again.'
+        : (res.data.message || 'Clear failed.');
+      if (res.ok) $('missions-input').value = '';
+      refreshDash();
+    });
+  });
+
   $('cooldown-btn').addEventListener('click', function () {
     api('/api/admin/cooldown', { seconds: Number($('cooldown-input').value) });
   });
